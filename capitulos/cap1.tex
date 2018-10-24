@@ -46,7 +46,9 @@ representación para un grafo con $9$ vértices.
 Si $G$ es un grafo, su conjunto de vértices de denota por $V(G)$ y sus
 aristas por $E(G)$. Como convención, cuando no exista ambigüedad, se
 escribirá $v \in G$, en vez de $v \in V(G)$ para un vértice de $G$. De
-manera análoga se escribe $e \in G$ para una arista de $G$.
+manera análoga se escribe $e \in G$ para una arista de $G$. Un grafo de
+la forma $K^n = (V , \binom{V}{2})$, donde $|V| = n $, se denomina
+\textbf{completo} de n vértices o $n$-completo.
 
 En cuanto a las aristas de un grafo $G$, se asume la notación $e = uv =
 vu$  para $e \in G$, donde $e = \lbrace u,v \rbrace \in E(G)$. El
@@ -168,7 +170,7 @@ $ G \cup G' \coloneq (V \cup V' , E \cup E') $ , de manera análoga, la
 intersección  $ G \cap G' \coloneq (V \cap V' , E \cap E') $. Si
 $G \cap G' = \emptyset$, los grafos $G$ y $G'$ se dicen
 \textit{disjuntos}. El grafo $\overline{G}$ se dirá complemento de
-$G$ si $\overline{G} = (V, \binom{V}{2} \setminus E$.
+$G$ si $\overline{G} = (V, \binom{V}{2} \setminus E )$.
 El grado de cada vértice $ u \in \overline{G}$ se relaciona con su
 símil en $G$.
 
@@ -236,6 +238,32 @@ $\varepsilon(H)$ para dos grafos $H \subseteq G$.
 
 \begin{proof}
 
+Se construye una sucesión  $G = G _ { 0 } \supseteq G _ { 1 } \supseteq
+\ldots$ de subgrafos inducidos por $G$. En esta sucesión, si el grafo
+$i$ - ésimo , $G_i$ tiene un vértice $v_i$ de grado $ d_{G_i}(v_i) \leq
+\varepsilon(G_i) $ se genera $G _ { i + 1 } \coloneq G _ { i } - v _ {
+i }$. En caso contrario, se termina la sucesión y se define $H \coloneq
+G _ { i }$.
+
+Por la elección de $v_i$ se tiene que $\varepsilon \left( G _ { i + 1 }
+\right) \geqslant \varepsilon \left( G _ { i } \right)$. Esto se
+observa directamente de la relación,
+\begin{equation*}
+	\frac{|E(G_i)|}{|V(G_i)|} = \frac{|E(G_i)| - \varepsilon(G_i)}{
+	|V(G_i)|-1}
+\end{equation*}
+
+para todo $i$ en la sucesión. Por construcción, se tendrá entonces
+$\varepsilon ( H ) \geqslant \varepsilon ( G )$.
+
+Por otra parte, se observa que $K^{1}$ (grafo consistente de un
+vértice), cumple $\varepsilon \left( K ^ { 1 } \right) = 0 <
+\varepsilon (G)$. Según la relación anterior, se tendrá entonces que
+$K^{1}$ no pertenece a la sucesión, por lo que en particular $H
+\neq \emptyset$. Como $H$ es minimal en el sentido de la construcción
+(no se pueden borrar más vértices), se tendrá que $\delta ( H ) >
+\varepsilon ( H )$.
+
 \end{proof}
 
 
@@ -262,9 +290,9 @@ grafos.
 \subfloat[]{\label{fig:join}}{\includegraphics[scale=0.75]{./figuras/pdf/join.pdf}}
 \qquad
 \subfloat[]{\label{fig:grilla}}{\includegraphics[scale=0.75]{./figuras/pdf/grilla.pdf}}
-\caption{En \subref{fig:ej0} se muestran los grafos disjuntos $G$ y $G'$. El resultado de $G * G'$ se observa en \subref{fig:join}.
-Finalmente en \subref{fig:grilla} se muestra $G \ \square \
-G'$.}
+\caption{En \subref{fig:ej0} se muestran los grafos disjuntos $G$ y $G'$.
+El resultado de $G * G'$ se observa en \subref{fig:join}.
+Finalmente en \subref{fig:grilla} se muestra $G \ \square \ G'$.}
 \label{fig:ej}
 \end{figure}
 
@@ -281,11 +309,11 @@ que verifica $\forall \  uv \in E(G) \implies f(u)f(v) \in E(H)$.
 
 \begin{ex}[morfismos entre caminos]
 	Se define el grafo $ P_n = ( V, E) $ según la estructura secuencial
-	$ V = \left \lbrace {v_1 , \ldots , v_n} \right \rbrace $ donde $ v_i
+	$ V = \left \lbrace {v_0 , \ldots , v_n} \right \rbrace $ donde $ v_i
 	\neq v_j, \ \forall i \neq j $. Se tiene además $e_i = v_{i}v_{i+1}$
-	para $ E = \left \lbrace {e_1, \ldots, e_{n-1}  } \right \rbrace$.
+	para $ E = \left \lbrace {e_0, \ldots, e_{n-1}  } \right \rbrace$.
 	Los grafos del tipo $ P_n $ se denotan como \textbf{caminos} de largo
-	$n$. En el caso $n=1$ se considera $E = \emptyset$.
+	$n$. En el caso $n=0$ se considera $E = \emptyset$.
 
 	\begin{figure}[ht]
 		\includegraphics{./figuras/pdf/fig_ex1.pdf}
@@ -294,25 +322,42 @@ que verifica $\forall \  uv \in E(G) \implies f(u)f(v) \in E(H)$.
 	\end{figure}
 
 Estudiar la posibilidad de construir un morfismo entre caminos del tipo
-$P_n$ y $P_{n-1}$ para $n \geq 2$.
+$P_n$ y $P_{n-1}$ para $n \geq 1$.
 
 \end{ex}
 \begin{solution}
-	Para el caso $n = 2$ no es posible obtener un morfismo, pues $ P_1 $
-	no tiene aristas. Para $ n \geq 3 $, se definen los caminos $ P_n $
-	con vertices $ V = \left \lbrace {v_1 , \ldots , v_n} \right \rbrace $ y $ P_{n-1} $ con vértices $ V' = \left \lbrace {v_1 , \ldots , v_{n-1} } \right \rbrace $, cada arista de $ P_n $ se denota por $e_i$ para $ i = 1, \ldots, n-1$. De manera análoga (hasta $n-2$) se denotan las aristas de $P_{n-1}$.
+	Para el caso $n = 1$ no es posible obtener un morfismo, pues $ P_0 $
+	no tiene aristas. Para $ n \geq 1 $, se definen los caminos $ P_n $
+	con vertices $ V = \left \lbrace {v_0 , \ldots , v_n} \right \rbrace $ y $ P_{n-1} $ con vértices $ V' = \left \lbrace {v_0 , \ldots , v_{n-1} } \right \rbrace $, cada arista de $ P_n $ se denota por $e_i$ para $ i = 0, \ldots, n-1$. De manera análoga (hasta $n-2$) se denotan las aristas de $P_{n-1}$.
 
 	En este caso es posible construir un morfismo $f: V \rightarrow V'$
-	por medio de :
+	a través de :
 	\begin{equation*}
 		f(v_i) = \begin{cases}
-								v_i, \ \ \ \ \ \text{para} \ i=1, \ldots, n-1 \\
+								v_i, \ \ \ \ \ \text{para} \ i=0, \ldots, n-1 \\
 								v_{n-2}, \ \text{para} \ i = n
 						 \end{cases}
 	\end{equation*}
 
-	Por medio de $f$, para cada arista $e_i = v_i v_{i+1}$ en $E(P_n)$
-	existe su arista idéntica $f(v_i)f(v_{i+1}) = e_i$ en $E(P_{n-1})$ para $i = 1, \ldots, n-2$. Finalmente para la arista $e_{n-1} = v_{n-1} v_{n}$  existe $f(v_{n-1}) (v_{n}) = v_{n-1} v_{n-2} = v_{n-2} v_{n-1} \in E(P_{n-1})$. Por lo que se confirma que $f$ es
+	Por medio de $f$, para cada arista $e_i = v_i v_{i+1} \in E(P_n)$
+	existe su arista idéntica $f(v_i)f(v_{i+1}) = e_i \in E(P_{n-1})$ para $i = 1, \ldots, n-2$. Finalmente para la arista $e_{n-1} = v_{n-1} v_{n}$  existe $f(v_{n-1}) (v_{n}) = v_{n-1} v_{n-2} = v_{n-2} v_{n-1} \in E(P_{n-1})$. Por lo que se confirma que $f$ es
 	un morfismo entre $P_n$ y $P_{n-1}$.
 
 \end{solution}
+
+\section{Camino y Ciclos}
+
+Un \textbf{camino} es un grafo no vacío $P = (V,E)$  de la forma
+
+\begin{equation*}
+	V = \left\{ x _ { 0 } , x _ { 1 } , \ldots , x _ { k } \right\}, \quad
+  E = \left\{ x _ { 0 } x _ { 1 } , x _ { 1 } x _ { 2 } , \ldots , x _
+	{ k - 1 } x _ { k } \right\}
+\end{equation*}
+
+donde los vértices $x_i$ son todos distintos. Los vértices de un camino
+se dicen \textit{conectados} por $P$, en particular  $x_0$ y $x_k$ están
+conectados por $P$ y se denominan como sus \textit{extremos}. Por otra
+parte, los vértices $x _ { 1 } , \dots , x _ { k - 1 }$ son sus
+\textit{vértices internos}. El número de aristas en $P$ se denota como
+su \textbf{largo}. Un camino de largo $n$ se denota como $P_n$.
